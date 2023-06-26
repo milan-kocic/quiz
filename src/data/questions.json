@@ -1,0 +1,124 @@
+{
+  "questions": [
+    {
+      "question": " Колико месеци имамо у години?",
+      "options": ["7", "12", "30", "24"],
+      "correctOption": 1,
+      "points": 10
+    },
+    {
+      "question": "Колико боја има дуга?",
+      "options": ["4", "6", "12", "7"],
+      "correctOption": 3,
+      "points": 10
+    },
+    {
+      "question": "Која животиња је позната као „Брод пустиње?",
+      "options": ["Камила", "Лисица", "Слон", "Тигар"],
+      "correctOption": 0,
+      "points": 10
+    },
+    {
+      "question": "Како зовете особу која вам из поште донесе писмо кући?",
+      "options": ["Поштар", "Писац", "Чувар", "Ватрогасац"],
+      "correctOption": 2,
+      "points": 10
+    },
+    {
+      "question": "Пастрмка, шаран и баракуда су називи чега?",
+      "options": ["Птица", "Патака", "Мачака", "Риба"],
+      "correctOption": 0,
+      "points": 10
+    },
+    {
+      "question": "Која планета је најмања: Нептун, Марс, Меркур?",
+      "options": ["Меркур", "Нептун", "Марс", "Венера"],
+      "correctOption": 0,
+      "points": 10
+    },
+    {
+      "question": " Која планета је позната као Црвена планета?",
+      "options": ["Плутон", "Сатурн", "Марс", "Земља"],
+      "correctOption": 3,
+      "points": 30
+    },
+    {
+      "question": "Лубенице су пореклом из...",
+      "options": ["Аустралије", "Западне Африке", "Европе", "Јужне Америке"],
+      "correctOption": 2,
+      "points": 20
+    },
+    {
+      "question": "When do we directly \"touch\" the DOM in React?",
+      "options": [
+        "When we need to listen to an event",
+        "When we need to change the UI",
+        "When we need to add styles",
+        "Almost never"
+      ],
+      "correctOption": 3,
+      "points": 20
+    },
+    {
+      "question": "In what situation do we use a callback to update state?",
+      "options": [
+        "When updating the state will be slow",
+        "When the updated state is very data-intensive",
+        "When the state update should happen faster",
+        "When the new state depends on the previous state"
+      ],
+      "correctOption": 3,
+      "points": 30
+    },
+    {
+      "question": "If we pass a function to useState, when will that function be called?",
+      "options": [
+        "On each re-render",
+        "Each time we update the state",
+        "Only on the initial render",
+        "The first time we update the state"
+      ],
+      "correctOption": 2,
+      "points": 30
+    },
+    {
+      "question": "Which hook to use for an API request on the component's initial render?",
+      "options": ["useState", "useEffect", "useRef", "useReducer"],
+      "correctOption": 1,
+      "points": 10
+    },
+    {
+      "question": "Which variables should go into the useEffect dependency array?",
+      "options": [
+        "Usually none",
+        "All our state variables",
+        "All state and props referenced in the effect",
+        "All variables needed for clean up"
+      ],
+      "correctOption": 2,
+      "points": 30
+    },
+    {
+      "question": "An effect will always run on the initial render.",
+      "options": [
+        "True",
+        "It depends on the dependency array",
+        "False",
+        "In depends on the code in the effect"
+      ],
+      "correctOption": 0,
+      "points": 30
+    },
+    {
+      "question": "When will an effect run if it doesn't have a dependency array?",
+      "options": [
+        "Only when the component mounts",
+        "Only when the component unmounts",
+        "The first time the component re-renders",
+        "Each time the component is re-rendered"
+      ],
+      "correctOption": 3,
+      "points": 20
+    }
+  ]
+}
