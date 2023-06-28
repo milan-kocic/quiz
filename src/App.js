@@ -6,6 +6,8 @@ import Error from './components/Error';
 import Loader from './components/Loader';
 import StartScreen from './components/StartScreen';
 import Question from './components/Question';
+import NextButton from './components/NextButton';
+import Progress from './components/Progress';
 
 function reducer(state, action) {
   switch (action.type) {
@@ -15,10 +17,10 @@ function reducer(state, action) {
       return { ...state, status: 'error' };
     case 'start':
       return { ...state, status: 'active' };
-    case 'newAswer':
-      // !const question = state.questions[state.index]; ovo je isto kao dole
-      //!array.at(index) - vraća element na određenoj poziciji u nizu
-      //!isto kao i array[index]
+    case 'newAnswer':
+      //! const question = state.questions[state.index]; ovo je isto kao dole
+      //! array.at(index) - vraća element na određenoj poziciji u nizu
+      //! isto kao i array[index]
       const question = state.questions.at(state.index);
 
       return {
@@ -29,20 +31,30 @@ function reducer(state, action) {
             ? state.points + question.points
             : state.points
       };
+    case 'nextQuestion':
+      return { ...state, index: state.index + 1, answer: null };
+
     default:
       throw new Error('No such action type');
   }
 }
 
 function App() {
-  const [{ questions, status, index, answer }, dispatch] = useReducer(reducer, {
-    questions: [],
-    status: 'loading',
-    index: 0,
-    answer: null,
-    points: 0
-  });
+  const [{ questions, status, index, answer, points }, dispatch] = useReducer(
+    reducer,
+    {
+      questions: [],
+      status: 'loading',
+      index: 0,
+      answer: null,
+      points: 0
+    }
+  );
   const numQuestions = questions.length;
+  const questionPoints = questions.reduce(
+    (acc, question) => acc + question.points,
+    0
+  );
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -70,11 +82,21 @@ function App() {
           <StartScreen numQuestions={numQuestions} dispatch={dispatch} />
         )}
         {status === 'active' && (
-          <Question
-            question={questions[index]}
-            dispatch={dispatch}
-            answer={answer}
-          />
+          <>
+            <Progress
+              index={index}
+              numQuestions={numQuestions}
+              questionPoints={questionPoints}
+              points={points}
+              answer={answer}
+            />
+            <Question
+              question={questions[index]}
+              dispatch={dispatch}
+              answer={answer}
+            />
+            <NextButton dispatch={dispatch} answer={answer} />
+          </>
         )}
       </Main>
     </div>
