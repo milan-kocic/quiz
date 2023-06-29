@@ -8,6 +8,7 @@ import StartScreen from './components/StartScreen';
 import Question from './components/Question';
 import NextButton from './components/NextButton';
 import Progress from './components/Progress';
+import FinishScreen from './components/FinishScreen';
 
 function reducer(state, action) {
   switch (action.type) {
@@ -22,7 +23,10 @@ function reducer(state, action) {
       //! array.at(index) - vraća element na određenoj poziciji u nizu
       //! isto kao i array[index]
       const question = state.questions.at(state.index);
-
+      // pišemo state.questions jer je state objekat, a questions je svojstvo objekta state
+      // state se nalazi u App.js u useReducer hook-u i ima svojstvo questions
+      // state je drugi parametar u useReducer hook-u i možemo da mu pristupimo preko state.questions ili state.status
+      // ili state.index ili state.answer ili state.points ili state.highscore, bez state ne možemo da pristupimo svojstvima objekta state
       return {
         ...state,
         answer: action.payload,
@@ -33,6 +37,29 @@ function reducer(state, action) {
       };
     case 'nextQuestion':
       return { ...state, index: state.index + 1, answer: null };
+    case 'finish':
+      return {
+        ...state,
+        status: 'finished',
+        highscore:
+          state.points > state.highscore ? state.points : state.highscore
+      };
+
+    case 'restart':
+      // return { ...initialState, questions: state.questions, status: 'ready' };
+      // ili ovako dole (kao da je initialState objekat) - spread operator će da prepiše sve vrednosti iz initialState objekta,
+      // a onda će da prepiše i questions i status iz state objekta
+      // (ovo je isto kao da smo napisali initialState.questions i initialState.status) -
+      // ovo je isto kao i gore sa initialState objektom samo što je ovde kraće napisano (kraći zapis) - ...initialState (spread operator)
+
+      return {
+        ...state,
+        status: 'ready',
+        index: 0,
+        answer: null,
+        points: 0,
+        highscore: 0
+      };
 
     default:
       throw new Error('No such action type');
@@ -40,16 +67,15 @@ function reducer(state, action) {
 }
 
 function App() {
-  const [{ questions, status, index, answer, points }, dispatch] = useReducer(
-    reducer,
-    {
+  const [{ questions, status, index, answer, points, highscore }, dispatch] =
+    useReducer(reducer, {
       questions: [],
       status: 'loading',
       index: 0,
       answer: null,
-      points: 0
-    }
-  );
+      points: 0,
+      highscore: 0
+    });
   const numQuestions = questions.length;
   const questionPoints = questions.reduce(
     (acc, question) => acc + question.points,
@@ -95,8 +121,21 @@ function App() {
               dispatch={dispatch}
               answer={answer}
             />
-            <NextButton dispatch={dispatch} answer={answer} />
+            <NextButton
+              dispatch={dispatch}
+              answer={answer}
+              numQuestions={numQuestions}
+              index={index}
+            />
           </>
+        )}
+        {status === 'finished' && (
+          <FinishScreen
+            points={points}
+            questionPoints={questionPoints}
+            highscore={highscore}
+            dispatch={dispatch}
+          />
         )}
       </Main>
     </div>
